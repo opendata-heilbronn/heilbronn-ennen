@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css' rel='stylesheet' />
+    <!--[if lt IE 9]>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.ie.css' rel='stylesheet' />
+    <![endif]-->
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        .overlay {
+            position:absolute;
+            top: 14px;
+            right: 14px;
+            z-index:100;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<div class="overlay">
+    <input class="opacity-slider" type="range" min="0" max="1" step="0.1" value="0.6" />
+</div>
+<script>
+    L.mapbox.accessToken = 'pk.eyJ1IjoiY29kZWZvcmhlaWxicm9ubiIsImEiOiJaVW1RaEhzIn0.dTT9PWOqjBbzpw7S--GnAA';
+    var map = L.mapbox.map('map', 'mapbox.streets', {
+        center: [49.14, 9.22],
+        zoom: 13,
+        maxZoom: 17
+    });
+    var layer = L.mapbox.tileLayer('codeforheilbronn.1nfisx1h', {
+        opacity: 0.6
+    });
+
+    layer.addTo(map);
+
+    L.control.locate().addTo(map);
+
+    var updateOpacity = function(event) {
+        layer.setOpacity(event.target.value);
+    };
+    document.querySelector('.opacity-slider').addEventListener('input', updateOpacity);
+    document.querySelector('.opacity-slider').addEventListener('change', updateOpacity);
+</script>
+
+</body>
+</html>
