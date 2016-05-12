@@ -13,18 +13,22 @@ var bottomRight = {
 };
 
 var q = async.queue(function (task, callback) {
-    var stream = request(task.url).pipe(fs.createWriteStream('downloads/tile-' + task.x + 'x' + task.y + '.png'));
+    var filename = 'downloads/tile-' + task.x + 'x' + task.y + '.png';
+    if(fs.existsSync(filename)){
+        console.log('skipping tile');
+        callback();
+        return true;
+    }
+    var urlRequest = request(task.url).on('error', function(){
+        console.error('could not download: ' + task.url);
+    });
+    var stream = urlRequest.pipe(fs.createWriteStream(filename));
     stream.on('finish', function () {
-        console.log('finished downloading ' + task.url);
-        
         callback();
     });
 }, 2);
 
 
-/*
-http://owsproxy.lgl-bw.de/owsproxy/ows/WMS_LGL-BW_HIST_FKWue_25_K?user=la_bw&password=20140404_la_bw&FORMAT=image%2Fpng&LAYERS=RDS.LY_HISTFK25_SWKOMBI&PROJECTION=EPSG%3A3857&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&SRS=EPSG%3A3857&BBOX=1021011.5066341,6299992.5490553,1021087.9438152,6300068.9862365&WIDTH=256&HEIGHT=256
-*/
 var DIFF = 76.437181;
 
     var yIndex = 0;
