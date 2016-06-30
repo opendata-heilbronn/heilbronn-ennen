@@ -2,36 +2,55 @@ var gm = require('gm');
 var fs = require('fs');
 var async = require('async');
 // Use of GraphicsMagick 
-var finalImg = gm("./combinedImg1.png");
 
-var count = 0;
+var count = 1;
 
-var q = async.queue(function (task, callback) {
-    console.log('execute async queue');
-    //console.log('task.y=' + task.y);
+var q1 = async.queue(function (task, callback) {
+    console.log('execute async queue ' + task.i);
+
     var path = "./combinedImg" + task.i + ".png";
-    // Append a set of images, only if tile exists
+    console.log('path ' + path);
+    if (fs.existsSync('./combinedImgFinal.png')) {
+        var finalImg = gm('./combinedImgFinal.png');
+        console.log('finalImg');
+    } else {
+        var finalImg = gm("./combinedImg1.png");
+        console.log('combined Img1');
+    }
+
     if (fs.existsSync(path)) {
         finalImg.append(path).append(true);
     }
+
+    // Append a set of images, only if tile exists
+
     setTimeout(function () {
-        console.log('after callback');
-        callback();
-    }, 300)
+        console.log('after callback 1');
+        var startTime = new Date();
+        finalImg.write('./combinedImgFinal.png', function (err) {
+            if (!err) {
+                console.log(' hooray! ' + task.i);
+                var endTime = new Date();
+                console.log((endTime - startTime)/1000);
+                callback();
+            }
+        });
+    }, 1000)
     count++;
     console.log(count);
 }, 1);
 
 
-for (var i = 2; i <= 299; i++) {
-    q.push({i: i});
+for (var i = 2; i <= 10; i++) {
+    q1.push({i: i});
 }
 
-
-q.drain = function () {
-    finalImg.write('./combinedImgBig.png', function (err) {
-        if (!err)
-            console.log(' hooray!');
-    });
-}
-
+/*
+ q.drain = function () {
+ finalImg.write('./combinedImgFinal.png', function (err) {
+ if (!err)
+ console.log(' hooray!');
+ });
+ }
+ 
+ */
