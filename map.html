@@ -15,6 +15,9 @@
     <![endif]-->
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css'
           rel='stylesheet'/>
+
+    <script src="pics/pics.geoJSON"></script>
+
     <style>
         body {
             margin: 0;
@@ -41,6 +44,17 @@
         .opacity-slider {
             padding: 3px 3px 2px;
         }
+
+        .leaflet-popup-content-wrapper {
+          background-color: rgba(255, 255, 255, 0.85);
+          color: rgba(28, 241, 28, 0.7);
+          border:none;
+          border-radius:15px;
+          box-shadow: 15px 15px 8px rgba(0, 0, 0, 0.7);
+        }
+        .leaflet-popup-tip {
+         border:none;
+        }
     </style>
 </head>
 <body>
@@ -50,17 +64,36 @@
     <input class="opacity-slider" type="range" min="0" max="1" step="0.1" value="0.6"/>
 </div>
 <script>
+
+    var screwi = screen.width;
+    var screwi_redux1 = screwi-(screwi*0.25);
+    var screwi_redux2 = screwi_redux1-(screwi_redux1*0.25);
+
     L.mapbox.accessToken = 'pk.eyJ1IjoiY29kZWZvcmhlaWxicm9ubiIsImEiOiJaVW1RaEhzIn0.dTT9PWOqjBbzpw7S--GnAA';
     var map = L.mapbox.map('map', 'mapbox.streets', {
         center: [49.14, 9.22],
-        zoom: 13,
-        maxZoom: 17
+        zoom: 17,
+        maxZoom: 19,
+        minZoom: 12,
+        opacity: 0.8
     });
-    var layer = L.mapbox.tileLayer('codeforheilbronn.1nfisx1h', {
-        opacity: 0.6
+   
+    var layer = L.tileLayer('tiles/{z}/{x}/{y}.png', {
+        opacity: 0.2,
+        maxZoom: 19,
+        minZoom: 16
     });
 
     layer.addTo(map);
+
+ //   console.log(pic_info.features[0]);
+    L.geoJson(pic_info, {
+                    onEachFeature: function (feature, layer) { 
+                        layer.bindPopup('<h1><center>'+feature.properties.name+'</center></h1><br><img src="pics/'+feature.properties.file+'" alt="'+feature.properties.archive_id+'" style="width:'+screwi_redux2+'px;color:rgba(21, 19, 21, 0.7)"><br><h2><center>(ca. '+feature.properties.year+')</center><h2>',{autoPan: true, maxWidth: screwi_redux1, maxHeight:1000});    
+                    }
+                }).addTo(map)
+
+ //   .bindPopup("<span><p>Name: " +feature.properties.name + "</p></span> <span> <p>Typ:"+feature.properties.year + "</p></span>" )
 
     L.control.locate().addTo(map);
 
