@@ -1,8 +1,6 @@
 .DS_Store
 .idea
 *.iml
-*.jpg
-*.png
 *.tiff
 *.tif
 node_modules
