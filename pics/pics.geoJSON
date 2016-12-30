@@ -1,0 +1,104 @@
+    var pic_info = 
+    {
+  "type": "FeatureCollection",
+  "features": [
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "nw",
+        "name": "Kilianskirche", 
+        "file" : "70330.jpg", 
+        "year" : "1860- 1894",
+        "archive_id" : "F001N-200400860"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.219971, 49.141507]
+      }
+    },
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "nw",
+        "name": "Marktplatz", 
+        "file" : "70331.jpg", 
+        "year" : "1860- 1900",
+        "archive_id" : "F001N-200400861"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.219032, 49.142037]
+      }
+    },
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "w",
+        "name": "Katharinenspital", 
+        "file" : "70332.jpg", 
+        "year" : "1860- 1860",
+        "archive_id" : "F001N-200400862"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.216440, 49.141853]
+      }
+    },
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "e",
+        "name": "Brückentor mit Katharinenspital", 
+        "file" : "70327.jpg", 
+        "year" : "1865",
+        "archive_id" : "F001N-200400857"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.215727, 49.142120]
+      }
+    },
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "nw",
+        "name": "Sankt Georgsbrunnen am Hafenmarkt", 
+        "file" : "70335.jpg", 
+        "year" : "1868",
+        "archive_id" : "F001N-200400865"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.220833, 49.142937]
+      }
+    },
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "nw",
+        "name": "Rathaus, Syndikatsgebäude", 
+        "file" : "70334.jpg", 
+        "year" : "1880- 1880",
+        "archive_id" : "F001N-200400864"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.218771, 49.142316]
+      }
+    },
+{
+      "type": "Feature",
+      "properties": {
+        "direction" : "e",
+        "name": "Neckar mit Neckarbrücke", 
+        "file" : "70333.jpg", 
+        "year" : "1895",
+        "archive_id" : "F001N-200400863"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ 9.214558, 49.142684]
+      }
+    }
+  ]
+};
