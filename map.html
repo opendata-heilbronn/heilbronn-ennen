@@ -84,13 +84,23 @@
         minZoom: 16
     });
 
+    var icon = L.icon({
+        iconUrl: 'pics/icon.svg',
+        iconSize: [80, 80],
+        iconAnchor: [40, 78],
+        popupAnchor:  [-3, -70]
+    });
+
     layer.addTo(map);
 
  //   console.log(pic_info.features[0]);
     L.geoJson(pic_info, {
                     onEachFeature: function (feature, layer) { 
-                        layer.bindPopup('<h1><center>'+feature.properties.name+'</center></h1><br><img src="pics/'+feature.properties.file+'" alt="'+feature.properties.archive_id+'" style="width:'+screwi_redux2+'px;color:rgba(21, 19, 21, 0.7)"><br><h2><center>(ca. '+feature.properties.year+')</center><h2>',{autoPan: true, maxWidth: screwi_redux1, maxHeight:1000});    
-                    }
+                        layer.bindPopup('<h1><center>'+feature.properties.name+'</center></h1><br><img src="pics/'+feature.properties.file+'" alt="'+feature.properties.archive_id+'" style="width:'+screwi_redux2+'px;color:rgba(21, 19, 21, 0.7)"><br><h2><center>(ca. '+feature.properties.year+')</center><h2>',{autoPan: true, maxWidth: screwi_redux1, maxHeight: 1000});    
+                    },
+                    pointToLayer: function (feature, latlng) {
+			            return L.marker(latlng, {icon: icon});
+            		},
                 }).addTo(map)
 
  //   .bindPopup("<span><p>Name: " +feature.properties.name + "</p></span> <span> <p>Typ:"+feature.properties.year + "</p></span>" )
